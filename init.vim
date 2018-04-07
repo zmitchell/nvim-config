@@ -54,7 +54,7 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#rust#racer_binary='/Users/zmitchell/.cargo/bin/racer'
 let g:deoplete#sources#rust#rust_source_path='/Users/zmitchell/projects/rust-src/rust/src'
 
-" syntastic settings
+" syntastic settings ---------------------------------------------------------
 "
 " These are the defaults recommended by the authors
 "set statusline+=%#warningmsg#
@@ -77,3 +77,27 @@ let g:enable_italic_font = 1
 set background=dark
 "colorscheme nord
 colorscheme hybrid_material
+
+" Other settings -------------------------------------------------------------
+
+" Set the size of the tab character in units of spaces
+set shiftwidth=4
+set tabstop=4
+set softtabstop=4
+set expandtab
+
+" Keep a minimum of some number of lines at the bottom of the screen so that
+" you aren't always looking at the bottom of the screen.
+set scrolloff=10
+
+" Set incremental search and highlighting, which basically allows you
+" to see the matches in a search as you type
+set incsearch
+set hlsearch
+
+" Show the line and column number at the bottom of the screen
+set ruler
+
+" Show line numbers in the gutter
+set nu
+
