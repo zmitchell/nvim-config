@@ -14,6 +14,11 @@ if dein#load_state('/Users/zmitchell/.config/nvim/bundle')
   call dein#add('rust-lang/rust.vim')
   call dein#add('sebastianmarkow/deoplete-rust')
   call dein#add('zchee/deoplete-jedi')
+  call dein#add('sheerun/vim-polyglot')
+  " Color schemes
+  call dein#add('arcticicestudio/nord-vim')
+  call dein#add('joshdick/onedark.vim')
+  call dein#add('kristijanhusak/vim-hybrid-material')
 
   " Let dein manage dein
   " Required:
@@ -62,3 +67,13 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers = ['flake8']
 
+" Color scheme settings ------------------------------------------------------
+set termguicolors
+let g:nord_italic = 1
+let g:nord_italic_comments = 1
+let g:nord_comment_brightness = 15
+let g:enable_bold_font = 1
+let g:enable_italic_font = 1
+set background=dark
+"colorscheme nord
+colorscheme hybrid_material
