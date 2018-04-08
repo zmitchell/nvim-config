@@ -15,6 +15,9 @@ if dein#load_state('/Users/zmitchell/.config/nvim/bundle')
   call dein#add('sebastianmarkow/deoplete-rust')
   call dein#add('zchee/deoplete-jedi')
   call dein#add('sheerun/vim-polyglot')
+  call dein#add('vim-airline/vim-airline')
+  call dein#add('vim-airline/vim-airline-themes')
+  call dein#add('tpope/vim-fugitive')
   " Color schemes
   call dein#add('arcticicestudio/nord-vim')
   call dein#add('joshdick/onedark.vim')
@@ -55,11 +58,6 @@ let g:deoplete#sources#rust#racer_binary='/Users/zmitchell/.cargo/bin/racer'
 let g:deoplete#sources#rust#rust_source_path='/Users/zmitchell/projects/rust-src/rust/src'
 
 " syntastic settings ---------------------------------------------------------
-"
-" These are the defaults recommended by the authors
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -68,17 +66,27 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers = ['flake8']
 
 " Color scheme settings ------------------------------------------------------
+
+" Status line settings
+set laststatus=2
+let g:airline_powerline_fonts = 1
+let g:airline_section_c = '%t'
+let g:airline_section_z = '%l/%L:%c'
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
 set termguicolors
-let g:nord_italic = 1
-let g:nord_italic_comments = 1
-let g:nord_comment_brightness = 15
 let g:enable_bold_font = 1
 let g:enable_italic_font = 1
 set background=dark
-"colorscheme nord
+let g:airline_theme = "hybrid"
 colorscheme hybrid_material
 
 " Other settings -------------------------------------------------------------
+
+" Get rid of highlighting when I hit the Enter key
+nnoremap <CR> :nohlsearch<cr>
 
 " Set the size of the tab character in units of spaces
 set shiftwidth=4
@@ -101,3 +109,42 @@ set ruler
 " Show line numbers in the gutter
 set nu
 
+" Make searches case sensitive only if the search string contains uppercase
+" characters
+set ignorecase smartcase
+
+" Highlight the current line
+set cursorline
+
+" Don't make backups at all
+set nobackup
+set nowritebackup
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+
+" Allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+" Show incomplete commands
+set showcmd
+
+" Insert only one space when joining lines that contain sentence-terminating
+" punctuation like `.`.
+set nojoinspaces
+
+" If a file is changed outside of vim, automatically reload it without asking
+set autoread
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RENAME CURRENT FILE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! RenameFile()
+    let old_name = expand('%')
+    let new_name = input('New file name: ', expand('%'), 'file')
+    if new_name != '' && new_name != old_name
+        exec ':saveas ' . new_name
+        exec ':silent !rm ' . old_name
+        redraw!
+    endif
+endfunction
+map <leader>n :call RenameFile()<cr>
